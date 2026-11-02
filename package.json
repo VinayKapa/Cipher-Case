@@ -1,0 +1,14 @@
+{
+  "name": "ciphercase",
+  "private": true,
+  "workspaces": ["apps/api", "apps/web", "packages/shared"],
+  "scripts": {
+    "dev": "concurrently -k -n api,web -c yellow,cyan \"npm:dev:api\" \"npm:dev:web\"",
+    "dev:api": "npm run build --workspace @ciphercase/shared && npm --workspace @ciphercase/api run dev",
+    "dev:web": "npm --workspace @ciphercase/web run dev",
+    "build": "npm run build --workspace @ciphercase/shared && npm run build --workspace @ciphercase/api && npm run build --workspace @ciphercase/web",
+    "test": "npm run build --workspace @ciphercase/shared && npm run build --workspace @ciphercase/api && npm run test --workspace @ciphercase/shared && npm run test --workspace @ciphercase/api",
+    "start": "npm --workspace @ciphercase/api start"
+  },
+  "devDependencies": { "concurrently": "^9.1.2", "typescript": "^5.7.3" }
+}
